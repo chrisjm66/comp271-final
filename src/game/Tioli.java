@@ -57,8 +57,8 @@ public class Tioli extends Pane {
         dealer = new Dealer(new Deck(52));
         playerArea = new PlayerArea(player, DEAL_SIZE, "tioli");
         dealerArea = new DealerArea(dealer, "tioli");
-        payoutTable = new PayoutTable("tioli", "blue"); // edit
-        wager = new Wager(player, WAGER_CHANGE, "red"); // TODO Fix wager object
+        payoutTable = new PayoutTable("tioli", "blue");
+        wager = new Wager(player, WAGER_CHANGE, "red");
         scoreboard = new ScoreBoard(player);
         btnDeal = new Button("Deal");
         btnTakeIt = new Button("Take It");
@@ -222,10 +222,10 @@ public class Tioli extends Pane {
     				playerHand.setCard(i, takeItCard);
     			}
     		}
+    		evaluateHand();
     		playerArea.showHandDescr();
     		playerArea.clearSelected();
     		playerArea.showCards();
-    		evaluateHand();
     		if (tioliCardsDealt < maxTioliCards) {
     			dealDealer();
     			timerObj.startTimer();
@@ -239,6 +239,7 @@ public class Tioli extends Pane {
     	timerObj.stopTimer();
 		dealerArea.removeTioliImage();
 		Card leaveItCard = dealer.getHand().removeCard(0);
+		
 		playerArea.clearSelected();
 		playerArea.showHandDescr();
 		dealerArea.showDiscardedCard(leaveItCard);
