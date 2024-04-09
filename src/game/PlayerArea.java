@@ -95,7 +95,7 @@ public class PlayerArea extends VBox {
 		//Assignment 3.2
 		if(!poker) clearSelected();
 		if(deucesWild) clearWild();  //Deuces Wild only
-		createCardListeners();
+		if(!poker) createCardListeners();
 		
 	}
 	

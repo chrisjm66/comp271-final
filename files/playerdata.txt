@@ -1,0 +1,2 @@
+Player ID,Player Name,Hand,Hand Descr,Win Amount,Bank
+9765467,FastFreddy,Kd 5h 8c 9d 7d ,High Card K,-100,2550

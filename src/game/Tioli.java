@@ -1,6 +1,5 @@
 package game;
 import java.util.ArrayList;
-
 import cards.Card;
 import deck.Deck;
 import gameobjects.GameOptions;
@@ -8,6 +7,7 @@ import gameobjects.GameTimer;
 import gameobjects.PayoutTable;
 import gameobjects.ScoreBoard;
 import gameobjects.Wager;
+import gameoutput.GameFile;
 import hand.Hand;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -194,9 +194,14 @@ public class Tioli extends Pane {
 
     private void clearCards(){
     	// Clear cards and send to discard
+    	Hand currentHand = player.getHand();
+    	int handSize = currentHand.getCards().length;
     	for(int i = 0; i < DEAL_SIZE; i++) {
-    		Hand currentHand = player.getHand();
     		playerArea.removeCardImage(i);
+    		
+    		if((i+1) == DEAL_SIZE && handSize > 0) {
+    			dealerArea.showDiscardedCard(currentHand.getCard(i));
+    		}
     	}
         dealer.gatherUsedCards(player);
     }
@@ -274,11 +279,13 @@ public class Tioli extends Pane {
     	int wagerAmount = wager.getWagerAmount();
     	int currentBalance = player.getBank();
     	int payoutAmount = payoutTable.getPayout(player.getHand(), wagerAmount);
+    	
     	tioliCardsDealt = 0;
     	player.setBank(currentBalance + payoutAmount);
     	scoreboard.setWinAmount(payoutAmount);
     	scoreboard.updateBank();
     	
+    	GameFile.writeCSVData("playerdata.txt", player, payoutAmount);
     }
     
     public static int getMaxTioliCards() {
