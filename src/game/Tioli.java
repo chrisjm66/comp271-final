@@ -7,7 +7,9 @@ import gameobjects.GameTimer;
 import gameobjects.PayoutTable;
 import gameobjects.ScoreBoard;
 import gameobjects.Wager;
+import gameoutput.GameData;
 import gameoutput.GameFile;
+import gameoutput.RandomPlayer;
 import hand.Hand;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -53,7 +55,7 @@ public class Tioli extends Pane {
     public Tioli(){
     	// Instantiate all objects
         gameScreen = new BorderPane();
-        player = new Player("9765467", "FastFreddy", 2650);
+        player = RandomPlayer.getPlayer();
         dealer = new Dealer(new Deck(52));
         playerArea = new PlayerArea(player, DEAL_SIZE, "tioli");
         dealerArea = new DealerArea(dealer, "tioli");
@@ -287,6 +289,15 @@ public class Tioli extends Pane {
     	scoreboard.updateBank();
     	
     	GameFile.writeCSVData("playerdata.txt", player, payoutAmount);
+    	GameFile.writeBinaryData("playerdata.dat", player, payoutAmount);
+    	updateDatabase();
+    }
+    
+    public void updateDatabase() {
+    	GameData database = new GameData();
+    	database.updateBank(player);
+    	database.insertResults(player, payoutTable.getPayout(player.getHand(), wager.getWagerAmount()));
+    	database.close();
     }
     
     public static int getMaxTioliCards() {

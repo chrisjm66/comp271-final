@@ -1,2 +1,2 @@
 Player ID,Player Name,Hand,Hand Descr,Win Amount,Bank
-9765467,FastFreddy,Ts Jh 4c 6s 2c ,High Card J,-100,2550
+3476981,AcesHigh,6h 5c 5s 6c Kd ,Two Pair 6s & 5s,-100,4030
