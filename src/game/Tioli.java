@@ -19,6 +19,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import player.*;
+import reports.GameReport;
 
 public class Tioli extends Pane {
     // Constants / Settings
@@ -35,6 +36,7 @@ public class Tioli extends Pane {
     private DealerArea dealerArea;
     private BorderPane gameScreen;
     private HBox header;
+    private HBox hbButtonContainer;
     private VBox centerSection;
     private VBox rightSection;
     private PayoutTable payoutTable;
@@ -44,6 +46,7 @@ public class Tioli extends Pane {
     private Button btnDeal;
     private Button btnTakeIt;
     private Button btnLeaveIt;
+    private Button btnReport;
     private Button btnExit;
     private GameTimer timerObj;
     private GameOptions gameOptions;
@@ -68,6 +71,7 @@ public class Tioli extends Pane {
         btnExit = new Button("Exit");
         timerObj = new GameTimer(GAME_LENGTH, btnLeaveIt);
         gameOptions = new GameOptions(playerArea, dealerArea, timerObj);
+        btnReport = new Button("Report");
         
         // Startup methods
         createHeader();
@@ -109,7 +113,10 @@ public class Tioli extends Pane {
 
     private void createRightSection(){
         rightSection = new VBox();
-        rightSection.getChildren().addAll(payoutTable, wager, scoreboard, btnExit);
+        hbButtonContainer = new HBox(10);
+        hbButtonContainer.setAlignment(Pos.CENTER);
+        hbButtonContainer.getChildren().addAll(btnReport, btnExit);
+        rightSection.getChildren().addAll(payoutTable, wager, scoreboard, hbButtonContainer);
         rightSection.setAlignment(Pos.CENTER);
         this.getChildren().add(rightSection);
     }
@@ -121,10 +128,14 @@ public class Tioli extends Pane {
     	btnDeal.setPrefHeight(40);
     	btnDeal.setStyle("-fx-font-size: 20px;");
 
-    	// BtnExit Style
-    	btnExit.setPrefWidth(150);
+    	// BtnExit & btnReport Style
+    	btnExit.setPrefWidth(130);
     	btnExit.setPrefHeight(40);
     	btnExit.setStyle("-fx-font-size: 20px;\n -fx-margin: 10px;");
+    	
+    	btnReport.setPrefWidth(130);
+    	btnReport.setPrefHeight(40);
+    	btnReport.setStyle("-fx-font-size: 20px;\n -fx-margin: 10px;");
     	
     	// btnTakeIt & btnLeaveIt
     	String tioliButtonStyle = "-fx-font-size: 15px;\n -fx-padding: 5px 5px;";
@@ -146,6 +157,8 @@ public class Tioli extends Pane {
     	btnLeaveIt.setOnAction(e -> leaveIt());
 
 		btnExit.setOnAction(e -> exitGame());
+		
+		btnReport.setOnAction(e -> new GameReport(player));
     }
     
     private void showGame(){

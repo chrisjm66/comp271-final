@@ -24,11 +24,11 @@ public class GameData {
 			// I could not get line 22 (playerData.last();) to work in RandomPlayer without these two parameters in my code. According to oracle, these allow for selecting any part of the database desired and not just iterate forward. I tried installing the older version of SQL connector (5.1.24) as listed in the assignments but that did not help either.
 			statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		} catch (SQLException e) {
-			System.out.println("Connection Failed");
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			System.out.println("Class invalid");
+			e.printStackTrace();
 		} catch (Exception e) {
-			System.out.println("Other error");
+			e.printStackTrace();
 		}
 	}
 	
@@ -37,7 +37,7 @@ public class GameData {
 		try {
 			statement.executeUpdate(statementString);
 		} catch (SQLException e) {
-			System.out.println("SQL Error - " + e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -47,15 +47,26 @@ public class GameData {
 		try {
 			statement.executeUpdate(statementString);
 		} catch (SQLException e) {
-			System.out.println("SQL Error - " + e);
+			e.printStackTrace();
 		}
+	}
+	
+	public ResultSet getReportData(Player player) {
+		ResultSet results = null;
+		try {
+			results = statement.executeQuery(String.format("SELECT * FROM game_results WHERE player_id = '%s'", player.getId()));
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return results;
 	}
 	
 	public void close() {
 		try {
 			connection.close();
+			System.out.println("Database disconnected");
 		} catch (SQLException e) {
-			System.out.println("SQL Error - " + e);
+			e.printStackTrace();
 		}
 	}
 }	

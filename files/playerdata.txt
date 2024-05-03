@@ -1,2 +1,2 @@
 Player ID,Player Name,Hand,Hand Descr,Win Amount,Bank
-3476981,AcesHigh,6h 5c 5s 6c Kd ,Two Pair 6s & 5s,-100,4030
+2435573,OneEyedJack,5c 5d 5h 5s Qd ,Four of a Kind 5s,3000,11100
