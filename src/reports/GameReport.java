@@ -75,13 +75,13 @@ public class GameReport {
 			DataOutputStream output = new DataOutputStream(new FileOutputStream("files/report.dat", false)); // no appending since all data is already stored in the database, and we are inserting all of that data
 			query.first();
 			
-			while(query.next()) {
+			 do {
 				output.writeUTF(query.getString(1));
-				output.writeUTF(player.getId());
+				output.writeUTF(player.getName());
 				output.writeUTF(query.getString(3));
 				output.writeInt(query.getInt(4));
 				output.writeInt(query.getInt(5));
-			}
+			} while(query.next());
 			output.close();
 			
 			query.last(); // move to last row to get # of rows on next line

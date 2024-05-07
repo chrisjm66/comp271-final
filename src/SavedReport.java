@@ -11,17 +11,20 @@ public class SavedReport {
 		System.out.printf("%-20s", "Hand Descr");
 		System.out.printf("%-20s", "Win Amount");
 		System.out.println("Bank");
-
+		int i = 0;
 		try(DataInputStream input = new DataInputStream(new FileInputStream("files/report.dat"))) {
+			
 			while(true) {
 				System.out.printf("%-15s",input.readUTF());
 				System.out.printf("%-30s",input.readUTF());
 				System.out.printf("%-20s",input.readUTF());
 				System.out.printf("%-20s",input.readInt());
 				System.out.println(input.readInt());
+				i++;
 			}
 			
 		} catch (EOFException ex) {
+			System.out.println("Row Count: " + i);
 			System.out.println("\nAll data has been read");
 		} catch (IOException ex) {
 			System.out.println(ex);
